@@ -206,5 +206,11 @@
   "productName":"WEIGHT SCALE HN 289 (HITAM)",
   "price":227739,
   "category":"BCM"
-}
+},
+{
+  "sku": "8091",
+  "productName": "BODY FAT MONITOR HBF-214",
+  "price": 626316,
+  "category": "BCM"
+},
 ]
