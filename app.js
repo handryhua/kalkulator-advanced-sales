@@ -55,3 +55,18 @@ tbody.appendChild(row)
 })
 
 }
+function changeQty(sku,change){
+
+const input=document.getElementById("qty-"+sku)
+
+let value=parseInt(input.value)
+
+value+=change
+
+if(value<0)value=0
+
+input.value=value
+
+updateCart()
+
+}
