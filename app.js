@@ -70,3 +70,31 @@ input.value=value
 updateCart()
 
 }
+
+function calculate(){
+
+let total=0
+
+CART.forEach(item=>{
+
+const p=PRODUCTS.find(x=>x.sku===item.sku)
+
+total+=p.price*item.qty
+
+})
+
+document.getElementById("totalValue").innerText=total
+
+}
+
+async function init(){
+
+const products=await fetch("./data/products.json").then(r=>r.json())
+
+PRODUCTS=products
+
+renderProducts()
+
+}
+
+init()
