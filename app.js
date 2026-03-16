@@ -13,16 +13,16 @@ let CART = []
 async function loadData(){
 
   const products = await fetch("./data/products.json")
-  .then(res => res.json())
+    .then(res => res.json())
 
   const customers = await fetch("./data/customers.json")
-  .then(res => res.json())
+    .then(res => res.json())
 
   const flexible = await fetch("./data/flexible-package.json")
-  .then(res => res.json())
+    .then(res => res.json())
 
   const grading = await fetch("./data/grading-foc.json")
-  .then(res => res.json())
+    .then(res => res.json())
 
   return {
     products,
@@ -131,9 +131,11 @@ function updateCart(){
 
   PRODUCTS.forEach(p => {
 
-    const qty = parseInt(
-      document.getElementById("qty-" + p.sku).value
-    )
+    const qtyInput = document.getElementById("qty-" + p.sku)
+
+    if(!qtyInput) return
+
+    const qty = parseInt(qtyInput.value)
 
     if(qty > 0){
 
@@ -165,12 +167,14 @@ function calculate(){
       p => p.sku === item.sku
     )
 
-    total += product.price * item.qty
+    if(product){
+      total += product.price * item.qty
+    }
 
   })
 
   document.getElementById("totalValue").innerText =
-  formatCurrency(total)
+    formatCurrency(total)
 
 }
 
