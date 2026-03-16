@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KAS OMRON</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f6f8;
+margin:0;
+padding:20px;
+}
+
+h1{
+color:#005BAC;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+button{
+padding:8px 12px;
+border:none;
+background:#005BAC;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+input{
+width:60px;
+text-align:center;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+th,td{
+border-bottom:1px solid #ddd;
+padding:8px;
+text-align:left;
+}
+
+.summary{
+margin-top:20px;
+padding:15px;
+background:#eef4ff;
+border-radius:8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>KAS OMRON</h1>
+
+<div>
+
+<button onclick="switchMode('flexible')">
+Flexible Package
+</button>
+
+<button onclick="switchMode('grading')">
+Grading Program
+</button>
+
+</div>
+
+<table id="productTable">
+
+<thead>
+<tr>
+<th>SKU</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Price</th>
+</tr>
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+<div class="summary">
+
+<div>Total Value: <span id="totalValue">0</span></div>
+
+<div>Total Bonus: <span id="totalBonus">0</span></div>
+
+<div>Total Final Price: <span id="finalPrice">0</span></div>
+
+</div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
