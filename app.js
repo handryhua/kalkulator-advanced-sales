@@ -75,7 +75,7 @@ function renderProducts(){
 
     const row = document.createElement("tr")
 
-    row.innerHTML = 
+    row.innerHTML = ""
       <td>${p.sku}</td>
 
       <td>${p.productName}</td>
