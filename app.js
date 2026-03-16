@@ -1,23 +1,28 @@
+/* =================================
+   GLOBAL STATE
+================================= */
+
 let PRODUCTS = []
 let CART = []
 
-/* ===============================
+
+/* =================================
    LOAD DATA
-================================*/
+================================= */
 
 async function loadData(){
 
   const products = await fetch("./data/products.json")
-  .then(r => r.json())
+  .then(res => res.json())
 
   const customers = await fetch("./data/customers.json")
-  .then(r => r.json())
+  .then(res => res.json())
 
   const flexible = await fetch("./data/flexible-package.json")
-  .then(r => r.json())
+  .then(res => res.json())
 
   const grading = await fetch("./data/grading-foc.json")
-  .then(r => r.json())
+  .then(res => res.json())
 
   return {
     products,
@@ -28,27 +33,37 @@ async function loadData(){
 
 }
 
-/* ===============================
-   INIT APP
-================================*/
+
+/* =================================
+   INIT APPLICATION
+================================= */
 
 async function init(){
 
-  const data = await loadData()
+  try{
 
-  PRODUCTS = data.products
+    const data = await loadData()
 
-  console.log("DATA LOADED", data)
+    PRODUCTS = data.products
 
-  renderProducts()
+    console.log("DATA LOADED:", data)
+
+    renderProducts()
+
+  }catch(error){
+
+    console.error("LOAD ERROR:", error)
+
+  }
 
 }
 
 init()
 
-/* ===============================
+
+/* =================================
    RENDER PRODUCT TABLE
-================================*/
+================================= */
 
 function renderProducts(){
 
@@ -60,10 +75,10 @@ function renderProducts(){
 
     const row = document.createElement("tr")
 
-    row.innerHTML =
+    row.innerHTML = 
       <td>${p.sku}</td>
 
-      <td>${p.productName ?? p.product}</td>
+      <td>${p.productName}</td>
 
       <td>
         <button onclick="changeQty('${p.sku}',-1)">-</button>
@@ -73,8 +88,8 @@ function renderProducts(){
         <button onclick="changeQty('${p.sku}',1)">+</button>
       </td>
 
-      <td>${p.price}</td>
-    `
+      <td>${formatCurrency(p.price)}</td>
+    
 
     tbody.appendChild(row)
 
@@ -82,9 +97,10 @@ function renderProducts(){
 
 }
 
-/* ===============================
+
+/* =================================
    QTY CONTROL
-================================*/
+================================= */
 
 function changeQty(sku, change){
 
@@ -94,7 +110,9 @@ function changeQty(sku, change){
 
   value += change
 
-  if(value < 0) value = 0
+  if(value < 0){
+    value = 0
+  }
 
   input.value = value
 
@@ -102,9 +120,10 @@ function changeQty(sku, change){
 
 }
 
-/* ===============================
+
+/* =================================
    UPDATE CART
-================================*/
+================================= */
 
 function updateCart(){
 
@@ -131,9 +150,10 @@ function updateCart(){
 
 }
 
-/* ===============================
+
+/* =================================
    CALCULATE TOTAL
-================================*/
+================================= */
 
 function calculate(){
 
@@ -141,12 +161,30 @@ function calculate(){
 
   CART.forEach(item => {
 
-    const p = PRODUCTS.find(x => x.sku === item.sku)
+    const product = PRODUCTS.find(
+      p => p.sku === item.sku
+    )
 
-    total += p.price * item.qty
+    total += product.price * item.qty
 
   })
 
-  document.getElementById("totalValue").innerText = total
+  document.getElementById("totalValue").innerText =
+  formatCurrency(total)
+
+}
+
+
+/* =================================
+   HELPER
+================================= */
+
+function formatCurrency(value){
+
+  return new Intl.NumberFormat("id-ID",{
+    style:"currency",
+    currency:"IDR",
+    minimumFractionDigits:0
+  }).format(value)
 
 }
