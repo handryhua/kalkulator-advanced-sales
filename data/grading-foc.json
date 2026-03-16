@@ -1,0 +1,51 @@
+{
+  "tier1": {
+    "discount": 2
+  },
+
+  "tier2": {
+
+    "8085": { "discount": 2, "startQty": 30, "startBonus": 6, "stepQty": 5, "stepBonus": 1 },
+    "E250": { "discount": 2, "startQty": 12, "startBonus": 1, "stepQty": 12, "stepBonus": 1 },
+    "D526": { "discount": 2, "startQty": 12, "startBonus": 1, "stepQty": 12, "stepBonus": 1 },
+    "D239": { "discount": 2, "startQty": 12, "startBonus": 1, "stepQty": 12, "stepBonus": 1 },
+    "E658": { "discount": 2, "startQty": 30, "startBonus": 6, "stepQty": 5, "stepBonus": 1 },
+    "F140": { "discount": 3, "startQty": 15, "startBonus": 1, "stepQty": 15, "stepBonus": 1 },
+    "E670": { "discount": 2, "startQty": 11, "startBonus": 1, "stepQty": 11, "stepBonus": 1 },
+    "E457": { "discount": 3, "startQty": 8, "startBonus": 1, "stepQty": 8, "stepBonus": 1 },
+    "6830": { "discount": 2, "startQty": 12, "startBonus": 1, "stepQty": 12, "stepBonus": 1 },
+    "8375": { "discount": 3, "startQty": 13, "startBonus": 1, "stepQty": 13, "stepBonus": 1 },
+    "B292": { "discount": 2, "startQty": 12, "startBonus": 1, "stepQty": 12, "stepBonus": 1 },
+    "4682": { "discount": 2, "startQty": 20, "startBonus": 2, "stepQty": 10, "stepBonus": 1 },
+    "D252": { "discount": 2, "startQty": 20, "startBonus": 2, "stepQty": 10, "stepBonus": 1 },
+    "7727": { "discount": 3, "startQty": 16, "startBonus": 2, "stepQty": 8, "stepBonus": 1 },
+    "B735": { "discount": 3, "startQty": 12, "startBonus": 2, "stepQty": 6, "stepBonus": 1 },
+    "E245": { "discount": 2, "startQty": 20, "startBonus": 1, "stepQty": 20, "stepBonus": 1 },
+    "E297": { "discount": 2, "startQty": 20, "startBonus": 1, "stepQty": 20, "stepBonus": 1 },
+    "E089": { "discount": 3, "startQty": 20, "startBonus": 1, "stepQty": 20, "stepBonus": 1 },
+    "F139": { "discount": 2, "startQty": 15, "startBonus": 1, "stepQty": 15, "stepBonus": 1 },
+    "8504": { "discount": 2, "startQty": 20, "startBonus": 1, "stepQty": 20, "stepBonus": 1 },
+    "8091": { "discount": 2, "startQty": 12, "startBonus": 2, "stepQty": 6, "stepBonus": 1 }
+
+  },
+
+  "tier3": {
+
+    "8085": { "discount": 3, "startQty": 100, "startBonus": 25, "stepQty": 4, "stepBonus": 1 },
+    "E250": { "discount": 3, "startQty": 33, "startBonus": 3, "stepQty": 11, "stepBonus": 1 },
+    "D526": { "discount": 3, "startQty": 33, "startBonus": 3, "stepQty": 11, "stepBonus": 1 },
+    "D239": { "discount": 3, "startQty": 33, "startBonus": 3, "stepQty": 11, "stepBonus": 1 },
+    "E658": { "discount": 3, "startQty": 72, "startBonus": 18, "stepQty": 4, "stepBonus": 1 },
+    "E670": { "discount": 3, "startQty": 27, "startBonus": 3, "stepQty": 9, "stepBonus": 1 },
+    "6830": { "discount": 3, "startQty": 16, "startBonus": 2, "stepQty": 8, "stepBonus": 1 },
+    "B292": { "discount": 3, "startQty": 54, "startBonus": 6, "stepQty": 9, "stepBonus": 1 },
+    "4682": { "discount": 3, "startQty": 238, "startBonus": 34, "stepQty": 7, "stepBonus": 1 },
+    "D252": { "discount": 3, "startQty": 238, "startBonus": 34, "stepQty": 7, "stepBonus": 1 },
+    "E245": { "discount": 3, "startQty": 48, "startBonus": 3, "stepQty": 16, "stepBonus": 1 },
+    "E297": { "discount": 3, "startQty": 30, "startBonus": 3, "stepQty": 10, "stepBonus": 1 },
+    "F139": { "discount": 3, "startQty": 20, "startBonus": 2, "stepQty": 10, "stepBonus": 1 },
+    "8504": { "discount": 3, "startQty": 30, "startBonus": 2, "stepQty": 15, "stepBonus": 1 },
+    "8091": { "discount": 3, "startQty": 20, "startBonus": 4, "stepQty": 5, "stepBonus": 1 }
+
+  }
+}
