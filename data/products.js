@@ -212,5 +212,5 @@
   "productName": "BODY FAT MONITOR HBF-214",
   "price": 626316,
   "category": "BCM"
-},
+}
 ]
