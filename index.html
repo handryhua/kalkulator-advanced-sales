@@ -1,118 +1,94 @@
-<!DOCTYPE html>
-<html lang="id">
+/**
+ * KALKULATOR PENJUALAN - ENTRY POINT
+ * Omron Sales Calculator
+ *
+ * Usage:
+ *   node index.js skema1   → demo Skema Penjualan 1
+ *   node index.js skema2   → demo Skema Penjualan 2
+ *   node index.js both     → demo kedua skema sekaligus
+ */
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+const { hitungSkema1 } = require("./engine/skema1");
+const { hitungSkema2 } = require("./engine/skema2");
 
-<title>KAS OMRON</title>
-
-<style>
-
-body{
-font-family: Arial;
-background:#f4f6f8;
-margin:0;
-padding:20px;
+function formatRupiah(n) {
+  return "Rp" + Math.round(n).toLocaleString("id-ID");
 }
 
-h1{
-color:#005BAC;
+function printSkema1(hasil) {
+  console.log("\n╔══════════════════════════════════════════════╗");
+  console.log("║         SKEMA PENJUALAN 1 - STANDARD         ║");
+  console.log("╚══════════════════════════════════════════════╝\n");
+
+  hasil.items.forEach((i) => {
+    const eligible = i.disc_ho_pct > 0 ? "✓" : "–";
+    console.log(`  ▸ [${i.sku}] ${i.product_name}`);
+    console.log(`    Qty: ${i.qty} × ${formatRupiah(i.price)} = ${formatRupiah(i.gross)}`);
+    console.log(`    Disc Base 2%: -${formatRupiah(i.disc_base_amount)}  |  Disc HO ${i.disc_ho_pct}%: -${formatRupiah(i.disc_ho_amount)}`);
+    console.log(`    NET: ${formatRupiah(i.net_amount)}\n`);
+  });
+
+  const s = hasil.summary;
+  console.log("┌──────────────────────────────────────────────┐");
+  console.log(`  Subtotal   : ${formatRupiah(s.subtotal_before_disc)}`);
+  console.log(`  Diskon     : -${formatRupiah(s.total_discount)}`);
+  console.log(`  Grand Total: ${formatRupiah(s.grand_total)}`);
+  console.log("└──────────────────────────────────────────────┘");
+  console.log(`\n  ℹ ${s.note}`);
+  if (s.bonus_eligible) {
+    console.log(`  🎁 Bonus: ${s.bonus_qty} unit ${s.bonus_item}`);
+  }
 }
 
-.container{
-max-width:900px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+function printSkema2(hasil) {
+  console.log("\n╔══════════════════════════════════════════════╗");
+  console.log("║      SKEMA PENJUALAN 2 - GRADING / PACKAGE   ║");
+  console.log("╚══════════════════════════════════════════════╝\n");
+
+  hasil.items.forEach((i) => {
+    const status = i.eligible ? "✓ ELIGIBLE" : "✗ BELUM MEMENUHI SYARAT";
+    console.log(`  ▸ [${i.sku}] ${i.product_name} — ${status}`);
+    console.log(`    Qty: ${i.qty} × ${formatRupiah(i.price)} = ${formatRupiah(i.gross)}`);
+    if (i.eligible) {
+      console.log(`    Disc Omron ${i.disc_omron_pct}%: -${formatRupiah(i.disc_omron_amount)}  |  Disc Dist ${i.disc_distributor_pct}%: -${formatRupiah(i.disc_distributor_amount)}`);
+      console.log(`    NET: ${formatRupiah(i.net_amount)}`);
+      if (i.free_units > 0) console.log(`    🎁 Bonus: ${i.free_units} unit gratis`);
+    } else {
+      console.log(`    ⚠ ${i.note}`);
+    }
+    console.log();
+  });
+
+  const s = hasil.summary;
+  console.log("┌──────────────────────────────────────────────┐");
+  console.log(`  Subtotal      : ${formatRupiah(s.subtotal_before_disc)}`);
+  console.log(`  Total Diskon  : -${formatRupiah(s.total_discount)}`);
+  console.log(`  Grand Total   : ${formatRupiah(s.grand_total)}`);
+  console.log(`  Total Bonus   : ${s.total_free_units} unit gratis`);
+  console.log("└──────────────────────────────────────────────┘");
 }
 
-button{
-padding:8px 12px;
-border:none;
-background:#005BAC;
-color:white;
-border-radius:6px;
-cursor:pointer;
+// ─── Demo data ────────────────────────────────────────────────────────────
+const cartSkema1 = [
+  { sku: "8085",  qty: 3 },
+  { sku: "E245",  qty: 5 },
+  { sku: "4682",  qty: 2 },
+  { sku: "X007",  qty: 1 },
+];
+
+const cartSkema2 = [
+  { sku: "4682",  qty: 28 },  // bonus = 3 + (28-21)/7 = 3+1 = 4
+  { sku: "8085",  qty: 10 },  // bonus = 2 + (10-10)/5 = 2+0 = 2
+  { sku: "E245",  qty: 15 },  // belum memenuhi min_buy=20
+];
+
+const arg = process.argv[2] || "both";
+
+if (arg === "skema1") {
+  printSkema1(hitungSkema1(cartSkema1));
+} else if (arg === "skema2") {
+  printSkema2(hitungSkema2(cartSkema2));
+} else {
+  printSkema1(hitungSkema1(cartSkema1));
+  printSkema2(hitungSkema2(cartSkema2));
 }
-
-input{
-width:60px;
-text-align:center;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:15px;
-}
-
-th,td{
-border-bottom:1px solid #ddd;
-padding:8px;
-text-align:left;
-}
-
-.summary{
-margin-top:20px;
-padding:15px;
-background:#eef4ff;
-border-radius:8px;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>KAS OMRON</h1>
-
-<div>
-
-<button onclick="switchMode('flexible')">
-Flexible Package
-</button>
-
-<button onclick="switchMode('grading')">
-Grading Program
-</button>
-
-</div>
-
-<table id="productTable">
-
-<thead>
-<tr>
-<th>SKU</th>
-<th>Product</th>
-<th>Qty</th>
-<th>Price</th>
-</tr>
-</thead>
-
-<tbody>
-
-</tbody>
-
-</table>
-
-<div class="summary">
-
-<div>Total Value: <span id="totalValue">0</span></div>
-
-<div>Total Bonus: <span id="totalBonus">0</span></div>
-
-<div>Total Final Price: <span id="finalPrice">0</span></div>
-
-</div>
-
-</div>
-
-<script src="app.js"></script>
-
-</body>
-</html>
